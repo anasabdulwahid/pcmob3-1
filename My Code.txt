@@ -1,0 +1,60 @@
+function HomeScreen({ navigation }) {
+  const [colorArray, setColorArray] = useState([]);
+
+  
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <Button onPress={addColor} title="Add Colour" />,
+    });
+  });
+
+  function renderItem({ item }) {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate("DetailsScreen", { ...item })}
+      >
+        <BlockRGB red={item.red} green={item.green} blue={item.blue} />
+      </TouchableOpacity>
+    );
+  }
+
+  function addColor() {
+    setColorArray([
+      ...colorArray,
+      {
+        red: Math.floor(Math.random() * 256),
+        green: Math.floor(Math.random() * 256),
+        blue: Math.floor(Math.random() * 256),
+        id: `${colorArray.length}`,
+      },
+    ]);
+  }
+  <TouchableOpacity
+    style={{ height: 40, justifyContent: "center" }}
+    onPress={addColor}
+  >
+    <Text style={{ color: "red" }}>Add colour</Text>
+  </TouchableOpacity>;
+  return (
+    <View style={styles.container}>
+      <FlatList style={styles.list} data={colorArray} renderItem={renderItem} />
+    </View>
+  );
+}
+
+
+
+<TouchableOpacity
+        style={{ height: 40, justifyContent: "center" }}
+        onPress={addColor}
+      >
+        <Text style={{ color: "red" }}>Add colour</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{ height: 40, justifyContent: "center" }}
+        onPress={resetColor}
+      >
+        <Text style={{ color: "red" }}>Reset colour</Text>
+      </TouchableOpacity>
+
